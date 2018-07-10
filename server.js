@@ -24,7 +24,7 @@ db.on('error', () => console.log("Error en la conexión con al DB"))
 app.use(bodyParser.json());
 
 //Endpoint para crear un usuario nuevo.
-app.post('/signup', function (req, res) {
+app.post('/signup', function(req, res) {
     let user = req.body;
     UserSchema.create(user).then((user) => {
         return res.status(201).json({
@@ -38,7 +38,7 @@ app.post('/signup', function (req, res) {
 });
 
 //Endpoint para logear a un usuario.
-app.post('/login', function (req, res) {
+app.post('/login', function(req, res) {
     const token = createToken(req.body.email, req.body.password).then((token) => {
         res.status(201).json({
             token
@@ -52,7 +52,7 @@ app.post('/login', function (req, res) {
 });
 
 //Endpoint principal, para saber que ya levantamos el servidor.
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     //req = request
     //res = response
     res.send("Estoy funcionando");
@@ -64,6 +64,6 @@ app.use('/graphql', graphQLHTTP((req, res) => ({
     pretty: true
 })));
 
-app.listen(PORT, function () {
+app.listen(PORT, function() {
     console.log("Magic Happens in Port " + PORT);
 });
