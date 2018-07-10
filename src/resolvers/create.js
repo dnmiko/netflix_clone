@@ -13,7 +13,9 @@ export const createToken = (email, password) => {
         return false;
     }
 
-    const user = User.findOne({ 'email': email }).then((user) => {
+    const user = User.findOne({
+        'email': email
+    }).then((user) => {
         console.log(user);
         const compare = new Promise((resolve, reject) => {
             user.comparePassword(password, (err, isMatch) => {
@@ -23,7 +25,9 @@ export const createToken = (email, password) => {
                         id: user._id
                     }
 
-                    const token = jwt.sign(payload, secret, { expiresIn });
+                    const token = jwt.sign(payload, secret, {
+                        expiresIn
+                    });
 
                     resolve(token);
                 } else {
