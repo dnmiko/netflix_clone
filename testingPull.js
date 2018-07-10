@@ -1,1 +1,0 @@
-/* Hola, este es un archivo de prueba para probar un pull de git */
