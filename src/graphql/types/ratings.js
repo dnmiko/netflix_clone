@@ -22,7 +22,7 @@ export const RatingType = new GraphQLObjectType({
             type: GraphQLString,
         },
         age: {
-            type: GraphQInt
+            type: GraphQLInt
         },
         is_active: {
             type: GraphQLBoolean

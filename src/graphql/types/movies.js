@@ -5,7 +5,8 @@ import {
     GraphQLObjectType,
     GraphQLBoolean,
     GraphQLNonNull,
-    GraphQLFloat
+    GraphQLFloat,
+    GraphQLList
 } from 'graphql';
 
 import { GenreType } from './genres';
@@ -44,7 +45,7 @@ export const MovieType = new GraphQLObjectType({
             type: GraphQLString
         },
         rate: {
-            type: GraphQLFloat
+            type: GraphQLList(GraphQLFloat)
         },
         rating: {
             type: RatingType,
@@ -65,7 +66,7 @@ export const MovieType = new GraphQLObjectType({
 export const MovieInputType = new GraphQLInputObjectType({
     name: "AddMovies",
     description: "Agrega películas a la base de datos del clone de Netflix",
-    fields = () => ({
+    fields: () => ({
         name: {
             type: GraphQLString
         },
