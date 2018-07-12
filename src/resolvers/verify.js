@@ -7,7 +7,6 @@ const secret = "samplejwtnetflix";
 const tokenPrefix = "JWT";
 
 export const verifyToken = (token) => {
-
     try {
         const [prefix, recivedToken] = token.split(' ');
         let user = null;
@@ -32,6 +31,6 @@ export const verifyToken = (token) => {
 
         return user;
     } catch (err) {
-        throw Error("Error inesperado");
+        throw Error(err);
     }
 }

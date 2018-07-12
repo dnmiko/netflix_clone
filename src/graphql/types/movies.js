@@ -90,3 +90,13 @@ export const MovieInputType = new GraphQLInputObjectType({
         }
     })
 });
+
+export const RateMovieType = new GraphQLInputObjectType({
+    name: "RateMovie",
+    description: "Actualiza el rate de una película dentro de la base de datos.",
+    fields: () => ({
+        rate: {
+            type: GraphQLFloat
+        }
+    })
+});
