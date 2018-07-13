@@ -1,0 +1,58 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.createToken = undefined;
+
+var _jsonwebtoken = require('jsonwebtoken');
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
+var _users = require('../models/users');
+
+var _users2 = _interopRequireDefault(_users);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*Esto podemos escribirlo en un archivo fuera de esto que se llame const, que incluya todas las cosas
+que no van a cambiar y pueden ser utilizadas por otras funciones*/
+var expiresIn = "1d";
+var secret = "samplejwtnetflix";
+var tokenPrefix = "JWT";
+
+var createToken = exports.createToken = function createToken(email, password) {
+    //Verifica que las credenciales no sean vacías.
+    if (!email || !password) {
+        return false;
+    }
+
+    var user = _users2.default.findOne({
+        'email': email
+    }).then(function (user) {
+        console.log(user);
+        var compare = new Promise(function (resolve, reject) {
+            user.comparePassword(password, function (err, isMatch) {
+                if (isMatch) {
+                    var payload = {
+                        email: user.email,
+                        id: user._id
+                    };
+
+                    var token = _jsonwebtoken2.default.sign(payload, secret, {
+                        expiresIn: expiresIn
+                    });
+
+                    resolve(token);
+                } else {
+                    reject(false);
+                }
+            });
+        });
+        return compare;
+    }).catch(function (err) {
+        return err;
+    });
+
+    return user;
+};
