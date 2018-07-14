@@ -7,38 +7,41 @@ const expiresIn = "1d";
 const secret = "samplejwtnetflix";
 const tokenPrefix = "JWT";
 
-export const createToken = (email, password) => {
-    //Verifica que las credenciales no sean vacías.
+export const createToken = function(email, password) {
+
     if (!email || !password) {
-        return false;
+        return false
     }
 
-    const user = User.findOne({
-        'email': email
-    }).then((user) => {
+    console.log(email, password)
+    const user = User.findOne({ 'email': email }).then((user) => {
         console.log(user);
         const compare = new Promise((resolve, reject) => {
-            user.comparePassword(password, (err, isMatch) => {
+
+            user.comparePassword(password, function(err, isMatch) {
+                console.log(isMatch);
                 if (isMatch) {
                     let payload = {
                         email: user.email,
                         id: user._id
                     }
+                    const token = jwt.sign(payload, secret, { expiresIn });
 
-                    const token = jwt.sign(payload, secret, {
-                        expiresIn
-                    });
-
-                    resolve(token);
+                    resolve(token)
                 } else {
-                    reject(false);
+                    reject(false)
                 }
-            });
+            })
+
         });
-        return compare;
+
+        return compare
+
     }).catch((err) => {
-        return err;
+        return err
     });
 
-    return user;
+
+    return user
+
 }
