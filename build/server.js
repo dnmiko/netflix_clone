@@ -28,6 +28,10 @@ var _graphql = require('./src/graphql');
 
 var _graphql2 = _interopRequireDefault(_graphql);
 
+var _cors = require('cors');
+
+var _cors2 = _interopRequireDefault(_cors);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //Iniciamos una instancia del servidor de express.
@@ -47,6 +51,8 @@ db.on('error', function () {
 
 //El método use sirve para decirle a express que utilice una librería específica.
 app.use(_bodyParser2.default.json());
+//Cuando definimos cors debemos especificar una lista negra o una lista blanca, nunca sólo así vacío.
+app.use((0, _cors2.default)());
 
 //Endpoint para crear un usuario nuevo.
 app.post('/signup', function (req, res) {
@@ -63,7 +69,7 @@ app.post('/signup', function (req, res) {
 });
 
 //Endpoint para logear a un usuario.
-app.post('/login', function (req, res) {
+app.post('/login', (0, _cors2.default)(), function (req, res) {
     var token = (0, _create.createToken)(req.body.email, req.body.password).then(function (token) {
         res.status(201).json({
             token: token

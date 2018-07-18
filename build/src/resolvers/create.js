@@ -22,26 +22,24 @@ var secret = "samplejwtnetflix";
 var tokenPrefix = "JWT";
 
 var createToken = exports.createToken = function createToken(email, password) {
-    //Verifica que las credenciales no sean vacías.
+
     if (!email || !password) {
         return false;
     }
 
-    var user = _users2.default.findOne({
-        'email': email
-    }).then(function (user) {
+    console.log(email, password);
+    var user = _users2.default.findOne({ 'email': email }).then(function (user) {
         console.log(user);
         var compare = new Promise(function (resolve, reject) {
+
             user.comparePassword(password, function (err, isMatch) {
+                console.log(isMatch);
                 if (isMatch) {
                     var payload = {
                         email: user.email,
                         id: user._id
                     };
-
-                    var token = _jsonwebtoken2.default.sign(payload, secret, {
-                        expiresIn: expiresIn
-                    });
+                    var token = _jsonwebtoken2.default.sign(payload, secret, { expiresIn: expiresIn });
 
                     resolve(token);
                 } else {
@@ -49,6 +47,7 @@ var createToken = exports.createToken = function createToken(email, password) {
                 }
             });
         });
+
         return compare;
     }).catch(function (err) {
         return err;

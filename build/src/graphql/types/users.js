@@ -43,7 +43,7 @@ var UserType = exports.UserType = new _graphql.GraphQLObjectType({
     }
 });
 
-//Estos son los datos que puede cambiar el usuario sin necesidad de ser usuario.
+//Estos son los datos que puede cambiar el usuario sin necesidad de ser admin.
 var UserInputType = exports.UserInputType = new _graphql.GraphQLInputObjectType({
     name: "AddUsers",
     description: "Agrega nuevos usuarios a la base de datos del clone de Netflix",
