@@ -6,6 +6,7 @@ import { createToken } from './src/resolvers/create';
 import { verifyToken } from './src/resolvers/verify';
 import graphQLHTTP from 'express-graphql';
 import schema from './src/graphql';
+import cors from 'cors';
 
 //Iniciamos una instancia del servidor de express.
 const app = express();
@@ -21,6 +22,8 @@ db.on('error', () => console.log("Error en la conexión con al DB"))
 
 //El método use sirve para decirle a express que utilice una librería específica.
 app.use(bodyParser.json());
+//Cuando definimos cors debemos especificar una lista negra o una lista blanca, nunca sólo así vacío.
+app.use(cors());
 
 //Endpoint para crear un usuario nuevo.
 app.post('/signup', function(req, res) {
