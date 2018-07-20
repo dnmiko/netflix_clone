@@ -10,7 +10,7 @@ const tokenPrefix = "JWT";
 export const createToken = function(email, password) {
 
     if (!email || !password) {
-        return false
+        return false;
     }
 
     console.log(email, password)
